@@ -58,6 +58,8 @@ function quantCheck(id, num){
             var newStock = res[0].stock_quantity - num; 
             updateQuant(id, newStock);
             var total = num * res[0].price;
+            var rev = total + res[0].product_sales
+            updateSales(id, rev)
             console.log("Cost: " + total);
         }
         challenge_one();
@@ -66,6 +68,13 @@ function quantCheck(id, num){
 
 function updateQuant(id, num){
     var sql = `UPDATE products SET stock_quantity = ${num} WHERE item_id = ${id}`;
+    connection.query(sql, function (err, res) {
+        if (err) throw err;
+    });
+}
+
+function updateSales(id, sale){
+    var sql = `UPDATE products SET product_sales = ${sale} WHERE item_id = ${id}`;
     connection.query(sql, function (err, res) {
         if (err) throw err;
     });
