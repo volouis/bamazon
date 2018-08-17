@@ -6,5 +6,4 @@ Part 2: Manager View
 
 Part 3: Supervisor View
 
-![Alt Text]
-(https://github.com/volouis/bamazon/blob/master/gif/manGif1.gif)
+![Alt Text](/gif/manGif1.gif)
