@@ -42,7 +42,7 @@ function madeChoice(cho){
     }else if(cho === "Add to Inventory"){
         read(2);
     }else if(cho === "Add New Product"){
-        addItem();
+        readDep();
     }
 }
 
@@ -58,6 +58,13 @@ function read(dec){
         }else if(dec === 2){
             addInv(res);
         }
+    });
+}
+
+function readDep(){
+    connection.query("SELECT * FROM departments", function (err, res) {
+        if (err) throw err;
+        addItem(res);
     });
 }
 
@@ -95,7 +102,11 @@ function addInv(data){
     })
 }
 
-function addItem(){
+function addItem(data){
+    var cho = []
+    for(i in data){
+        cho.push(data[i].department_name);
+    }
     inquirer.prompt([
         {
             type: "input",
@@ -106,7 +117,7 @@ function addItem(){
             type: "list",
             name: "depart",
             message: "What department does this item fall under?",
-            choices: ["furniture", "accessory", "clothing", "electronic", "cards", "toys"]
+            choices: cho
         },
         {
             type: "input",
